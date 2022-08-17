@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Noto Sans KR, sans-serif;
+}
+
+.vwCenter {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.widthCenter {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.heightCenter {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.loginBox {
+  width: 460px;
+  height: 300px;
+}
