@@ -6,6 +6,7 @@ function LoginPage() {
   const [ buttonText, setButtonText ] = useState('로그인');
   const navigate = useNavigate();
   
+  // 리디렉트
   // useEffect(() => {
   //   const isLogin = localStorage.getItem('token');
   //   if (isLogin) navigate('/todo');
@@ -27,6 +28,7 @@ function LoginPage() {
     else if (!checkButton.current.className.includes("btn-disabled")) checkButton.current.classList.add('btn-disabled');
   }, [user])
 
+  // try, catch 구문도 추가해야한다
   const loginAPI = async (inup) => {
     const params = inup === '로그인' ? 'signin': 'signup';
 
@@ -46,9 +48,9 @@ function LoginPage() {
   return (
     <div className="w-screen h-screen relative">
 
-      <p className="absolute widthCenter mt-32 text-5xl font-bold select-none">WANTED</p>
+      <p className="text-center pt-32 text-5xl font-bold select-none">WANTED</p>
 
-      <div className="absolute widthCenter top-1/4 loginBox border-solid border rounded-md border-gray-300 p-6 grid grid-rows-4">
+      <div className="absolute widthCenter top-52 loginBox border-solid border rounded-md border-gray-300 p-6 grid grid-rows-4">
 
         <div className="flex py-2">
           <div className="w-1/5 pt-3 select-none">이메일</div>
