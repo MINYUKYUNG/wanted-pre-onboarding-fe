@@ -26,8 +26,15 @@ function LoginPage() {
 
   // Assignment1
   useEffect(() => {
-    if (user.email.includes("@") && user.password.length >= 8) buttonRef.current.classList.remove('btn-disabled');
-    else if (!buttonRef.current.className.includes("btn-disabled")) buttonRef.current.classList.add('btn-disabled');
+    const button = buttonRef.current.classList;
+    if (user.email.includes("@") && user.password.length >= 8) {
+      button.remove('btn-disabled');
+      button.add('bg-yellow-100');
+      button.add('hover:bg-yellow-100');
+    } else if (!buttonRef.current.className.includes("btn-disabled")) {
+      button.add('btn-disabled');
+      button.remove('bg-yellow-100');
+    }
   }, [user]);
 
   // Assignment2 // SignUp // SignIn
@@ -85,7 +92,7 @@ function LoginPage() {
           )
         }
 
-        <button type="submit" className="btn mt-auto btn-disabled cursor-pointer bg-yellow-100 text-rose-600 border-0 hover:bg-yellow-100" ref={ buttonRef } onClick={ () => loginAPI(buttonText) }>{ buttonText }</button>
+        <button type="submit" className="btn mt-auto btn-disabled cursor-pointer text-rose-600 border-0" ref={ buttonRef } onClick={ () => loginAPI(buttonText) }>{ buttonText }</button>
 
       </div>
 
