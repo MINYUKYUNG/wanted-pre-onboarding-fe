@@ -5,61 +5,73 @@ import { useNavigate } from "react-router-dom"
 function LoginPage() {
   const [ buttonText, setButtonText ] = useState('로그인');
   const navigate = useNavigate();
+  const bgcolor = ' bg-gradient-to-r from-yellow-100 to-rose-300';
   
-  // 리디렉트
-  // useEffect(() => {
-  //   const isLogin = localStorage.getItem('token');
-  //   if (isLogin) navigate('/todo');
-  // }, [navigate])
+  // Assignment3
+  useEffect(() => {
+    const isLogin = localStorage.getItem('token');
+    if (isLogin) navigate('/todo');
+  }, []);
 
   const [ user, setUser ] = useState({
     email: "이메일",
     password: "비밀번호"
-  })
+  });
 
   const checkUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value })
   };
 
-  const checkButton = useRef();
+  const buttonRef = useRef();
 
+  // Assignment1
   useEffect(() => {
-    if (user.email.includes("@") && user.password.length >= 8) checkButton.current.classList.remove('btn-disabled');
-    else if (!checkButton.current.className.includes("btn-disabled")) checkButton.current.classList.add('btn-disabled');
-  }, [user])
+    if (user.email.includes("@") && user.password.length >= 8) buttonRef.current.classList.remove('btn-disabled');
+    else if (!buttonRef.current.className.includes("btn-disabled")) buttonRef.current.classList.add('btn-disabled');
+  }, [user]);
 
-  // try, catch 구문도 추가해야한다
+  // Assignment2 // SignUp // SignIn
   const loginAPI = async (inup) => {
     const params = inup === '로그인' ? 'signin': 'signup';
 
-    const response = await axios.post(`/auth/${params}`, {
-      email: user.email,
-      password: user.password
-    },
-    {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    try {
+      const response = await axios.post(`/auth/${params}`, {
+        email: user.email,
+        password: user.password
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    localStorage.setItem('token', response.data.access_token);
-    navigate("/todo");
-  }
+      localStorage.setItem('token', response.data.access_token);
+      navigate("/todo");
+    } catch(error) {
+      if (error.response.status === 404 && inup === '로그인') alert(`${error.message}\n존재하지 않는 회원입니다. 회원가입 후 다시시도해주세요.`);
+      else if (error.response.status === 401 && inup === '로그인') alert(`${error.message}\n잘못된 비밀번호입니다. 다시시도해주세요.`);
+      else alert(`${error.message}\n요청중에 오류가 발생했습니다. 새로고침 후 다시 시도해주세요.`);
+    };
+  };
+
+  const pressEnter = (e) => {
+    if (e.key === 'Enter' && !buttonRef.current.className.includes("btn-disabled")) loginAPI(buttonText);
+  };
 
 
   return (
-    <div className="w-screen h-screen relative">
+    <div className={ "w-screen h-screen relative" + bgcolor }>
 
-      <p className="text-center pt-32 text-5xl font-bold select-none">WANTED</p>
+      <p className="text-center pt-32 text-5xl font-bold select-none text-rose-500">WANTED</p>
 
-      <div className="absolute widthCenter top-52 loginBox border-solid border rounded-md border-gray-300 p-6 grid grid-rows-4">
+      <div className="absolute widthCenter top-52 loginBox border-solid border rounded-md border-rose-600 p-6 grid grid-rows-4">
 
         <div className="flex py-2">
-          <div className="w-1/5 pt-3 select-none">이메일</div>
-          <input type="text" name="email" placeholder="@를 포함한 이메일 입력" onChange={ checkUser } className="input input-bordered w-4/5 cursor-pointer" />
+          <div className="w-1/5 pt-3 select-none text-rose-600">이메일</div>
+          <input type="text" name="email" placeholder="@를 포함한 이메일 입력" onChange={ checkUser } onKeyPress={ pressEnter } className="input input-bordered w-4/5 cursor-pointer" />
         </div>
 
         <div className="flex py-2">
-          <div className="w-1/5 pt-3 select-none">비밀번호</div>
-          <input type="password" name="password" placeholder="8자 이상의 비밀번호 입력" onChange={ checkUser } className="input input-bordered w-4/5 cursor-pointer" />
+          <div className="w-1/5 pt-3 select-none text-rose-600">비밀번호</div>
+          <input type="password" name="password" placeholder="8자 이상의 비밀번호 입력" onChange={ checkUser } onKeyPress={ pressEnter } className="input input-bordered w-4/5 cursor-pointer" />
         </div>
 
         { buttonText === '로그인' ? 
@@ -67,13 +79,13 @@ function LoginPage() {
            : 
           ( 
             <div className="flex py-2">
-              <div className="w-1/5 pt-3 select-none">이름</div>
-              <input type="text" name="name" placeholder="홍길동" className="input input-bordered w-4/5 cursor-pointer" />
+              <div className="w-1/5 pt-3 select-none text-rose-600">이름</div>
+              <input type="text" name="name" placeholder="홍길동" onKeyPress={ pressEnter } className="input input-bordered w-4/5 cursor-pointer" />
             </div>
           )
         }
 
-        <button type="submit" className="btn mt-auto btn-disabled cursor-pointer" ref={ checkButton } onClick={ () => loginAPI(buttonText) }>{ buttonText }</button>
+        <button type="submit" className="btn mt-auto btn-disabled cursor-pointer bg-yellow-100 text-rose-600 border-0 hover:bg-yellow-100" ref={ buttonRef } onClick={ () => loginAPI(buttonText) }>{ buttonText }</button>
 
       </div>
 

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from './LoginPage';
 import TodoPage from './TodoPage';
+import NotFound from './NotFound';
 
 function RouterView() {
   return (
@@ -8,7 +9,7 @@ function RouterView() {
       <Route path={"/"} element={<LoginPage />} />
       <Route path={"/todo"} element={<TodoPage />} />
 
-      {/* <Route path={'*'} element={<NotFound />} /> */}
+      <Route path={'*'} element={<NotFound />} />
     </Routes>
   );
 }
