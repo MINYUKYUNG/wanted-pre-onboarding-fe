@@ -1,6 +1,6 @@
 # 원티드 프리온보딩 프론트엔드 선발 과제
 ## 1. 사이트 (배포 완료)
-- https://google.com
+- https://wanted-pre-onboarding-fe-zeta.vercel.app
 - TEST 이메일
   ```
   hihello@naver.com
