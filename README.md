@@ -23,10 +23,5 @@ npm install
 npm run start
 ```
 
-### Project build
-```
-npm run build
-```
-
 ## 3. 데모 영상 
 https://youtu.be/ysKPDA4eUgQ
