@@ -61,13 +61,7 @@ function TodoList({ input }) {
 
   const result = list.map((item) => {
     const doneLine = item.isCompleted ? " line-through": '';
-
-    const info = {
-      item: item,
-      list: list,
-      setList: setList,
-      ref: idList
-    };
+    const info = { item, list, setList, ref: idList };
 
     return (
       <div className="w-full h-1/5 py-2 flex" key={ item.id }>

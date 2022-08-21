@@ -41,7 +41,8 @@ function TodoPage() {
     if (todoInput.current.value) {
       createTodo().then((data) => {
         setInput(data);
-      })
+      });
+      
       todoInput.current.value = '';
     }
   };

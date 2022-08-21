@@ -19,7 +19,7 @@ function LoginPage() {
   });
 
   const checkUser = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value })
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const buttonRef = useRef();

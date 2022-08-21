@@ -68,11 +68,13 @@ const SideButtons = forwardRef(({ item, list, setList }, ref) => {
       };
     });
   };
+
+  const flex = { display: "flex" }, none = { display: "none"};
   
 
   return (
     <>
-      <div className="w-2/12 h-full focus:outline-none" style={ show ? { display: "flex" }: { display: "none"} }>
+      <div className="w-2/12 h-full focus:outline-none" style={ show ? flex: none }>
         <button onClick={ () => editTodo(item) } className="w-1/2 h-full focus:outline-none ml-3">
           <FontAwesomeIcon icon={ faPen } className="text-blue-500" />
         </button>
@@ -82,7 +84,7 @@ const SideButtons = forwardRef(({ item, list, setList }, ref) => {
         </button>
       </div>
 
-      <div className="w-2/12 h-full focus:outline-none" style={ show ? { display: "none" }: { display: "flex" } }>
+      <div className="w-2/12 h-full focus:outline-none" style={ show ? none: flex }>
         <button onClick={ () => updateTodo(item) } className="w-1/2 h-full focus:outline-none ml-3">
           <FontAwesomeIcon icon={ faCheck } className="text-blue-500" />
         </button>
